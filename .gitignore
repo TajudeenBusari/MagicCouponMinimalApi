@@ -362,3 +362,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore specific files
+MagicVilaCouponApi/obj/Debug/net9.0/MagicVilaCouponApi.AssemblyInfo.cs
+MagicVilaCouponApi/obj/Debug/net9.0/MagicVilaCouponApi.AssemblyInfoInputs.cache
+MagicVilaCouponApi/obj/rider.project.model.nuget.info
