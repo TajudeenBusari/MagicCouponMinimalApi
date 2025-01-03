@@ -1,0 +1,1 @@
+This project is a simple Minimal api demo using .Net 9.0.0.
