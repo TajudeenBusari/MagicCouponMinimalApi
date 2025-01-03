@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "IuT3SR+ihWU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\tajud\\RiderProjects\\MinimalAPIDemo\\MagicVilaCouponApi\\MagicVilaCouponApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tajud\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.0\\microsoft.aspnetcore.openapi.9.0.0.nupkg.sha512",
+    "C:\\Users\\tajud\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
