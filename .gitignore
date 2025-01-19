@@ -367,3 +367,18 @@ FodyWeavers.xsd
 MagicVilaCouponApi/obj/Debug/net9.0/MagicVilaCouponApi.AssemblyInfo.cs
 MagicVilaCouponApi/obj/Debug/net9.0/MagicVilaCouponApi.AssemblyInfoInputs.cache
 MagicVilaCouponApi/obj/rider.project.model.nuget.info
+
+# Ignore build artifacts and files related to MagicVilaCouponApi
+MagicVilaCouponApi/obj/
+MagicVilaCouponApi/bin/
+
+# Ignore specific file extensions
+*.txt
+*.dll
+*.pdb
+*.sourcelink.json
+*.exe
+*.nuget.dgspec.json
+*.nuget.g.props
+project.assets.json
+project.nuget.cache
