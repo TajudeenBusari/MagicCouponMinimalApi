@@ -25,9 +25,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
-} 
+}
 
-
+//Get All Coupons
 app.MapGet("api/v1/coupon", (ILogger<Program> _logger) =>
 {
     var response = new ApiResponse();
@@ -39,7 +39,8 @@ app.MapGet("api/v1/coupon", (ILogger<Program> _logger) =>
 
 }).WithName("GetAllCoupons").Produces<ApiResponse>(200);
 
-app.MapGet("api/v1/coupon/{id}", (int id) =>
+//Get Coupon by Id
+app.MapGet("api/v1/coupon/{id:int}", (int id) =>
 {
     
     var coupon = CouponStore.getCoupons().FirstOrDefault(c => c.Id == id);
@@ -54,6 +55,8 @@ app.MapGet("api/v1/coupon/{id}", (int id) =>
     return Results.Ok(response);
 }).WithName("GetCouponById").Produces<ApiResponse>(200);
 
+
+//Add Coupon
 app.MapPost("api/v1/coupon", async (IValidator <CreateCouponDto> _validation, [FromBody]CreateCouponDto createCouponDto) =>
 {
     var response = new ApiResponse(){IsSuccess = false, StatusCode = HttpStatusCode.BadRequest};
@@ -71,13 +74,7 @@ app.MapPost("api/v1/coupon", async (IValidator <CreateCouponDto> _validation, [F
         return Results.BadRequest(response);
     }
     
-    //map to coupon
-    /*var coupon = new Coupon()
-    {
-        Name = createCouponDto.Name,
-        Percentage = createCouponDto.Percentage,
-        IsActive = createCouponDto.IsActive
-    };*/
+    
     var coupon = CouponMapper.mapFromCreateCouponDtoToCoupon(createCouponDto);
     
     //get all coupons from the store
@@ -89,27 +86,17 @@ app.MapPost("api/v1/coupon", async (IValidator <CreateCouponDto> _validation, [F
     //add the new coupon to the list
     coupons.Add(coupon);
     
-    //map to couponDto
-    /*var couponDto = new CouponDto()
-    {
-        Id = coupon.Id,
-        Name = coupon.Name,
-        Percentage = coupon.Percentage,
-        IsActive = coupon.IsActive,
-        CreatedAt = coupon.CreatedAt
-    };*/
+  
     var couponDto = CouponMapper.mapFromCouponToCouponDto(coupon);
     response.Result = couponDto;
     response.IsSuccess = true;
     response.StatusCode = HttpStatusCode.Created;
     return Results.Ok(response);
-    //return Results.CreatedAtRoute("GetCouponById", new {id = couponDto.Id}, response);
-
-    //return Results.Created($"api/v1/coupon/{coupon.Id}", coupon);
-    //return Results.CreatedAtRoute("GetCouponById", new {id = couponDto.Id}, couponDto);
+    
 
 }).WithName("AddCoupon").Produces<ApiResponse>(201).Produces(400);
 
+//Update Coupon
 app.MapPut("api/v1/coupon/{id:int}", async (IValidator<UpdateCouponRequestDto> _validation, [FromRoute]int id, [FromBody] UpdateCouponRequestDto UpdateCouponRequestDto) =>
 {
     var response = new ApiResponse(){IsSuccess = false, StatusCode = HttpStatusCode.BadRequest};
@@ -131,24 +118,14 @@ app.MapPut("api/v1/coupon/{id:int}", async (IValidator<UpdateCouponRequestDto> _
     couponFromStore.Percentage = UpdateCouponRequestDto.Percentage;
     couponFromStore.LastUpdated = UpdateCouponRequestDto.LastUpdated;
     
-    
-    
-    //map to couponDto
-    /*var couponDto = new CouponDto()
-    {
-        Id = coupon.Id,
-        Name = coupon.Name,
-        Percentage = coupon.Percentage,
-        IsActive = coupon.IsActive,
-        CreatedAt = coupon.CreatedAt
-    };*/
     var couponDto = CouponMapper.mapFromCouponToCouponDto(couponFromStore);
     response.Result = couponDto;
     response.IsSuccess = true;
     response.StatusCode = HttpStatusCode.OK;
     return Results.Ok(response);
 }).WithName("UpdateCoupon").Produces<ApiResponse>(200).Produces(400);
-    
+
+//Delete Coupon
 app.MapDelete("api/v1/coupon/{id:int}", (int id) =>
 {
     var response = new ApiResponse(){IsSuccess = false, StatusCode = HttpStatusCode.BadRequest};
